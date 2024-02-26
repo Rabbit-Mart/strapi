@@ -1,4 +1,4 @@
-import type { Strapi } from '@strapi/types';
+import type { Strapi } from '@strapi/types/core';
 import { getService } from '../utils';
 
 const sendDidInviteUser = async () => {

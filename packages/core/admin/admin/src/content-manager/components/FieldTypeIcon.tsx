@@ -19,7 +19,7 @@ import {
   Uid,
 } from '@strapi/icons';
 
-import type { Attribute } from '@strapi/types';
+import type { Attribute } from '@strapi/types/schema';
 
 const iconByTypes: Record<Attribute.Kind, React.ReactElement> = {
   biginteger: <Number />,

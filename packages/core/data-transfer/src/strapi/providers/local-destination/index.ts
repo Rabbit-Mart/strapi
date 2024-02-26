@@ -2,7 +2,8 @@ import { Writable, Readable } from 'stream';
 import path from 'path';
 import * as fse from 'fs-extra';
 import type { Knex } from 'knex';
-import type { LoadedStrapi } from '@strapi/types';
+import type { LoadedStrapi } from '@strapi/types/core';
+import type { Struct } from '@strapi/types/internal';
 import type {
   IAsset,
   IDestinationProvider,
@@ -181,7 +182,7 @@ class LocalStrapiDestinationProvider implements IDestinationProvider {
     };
   }
 
-  getSchemas() {
+  getSchemas(): Record<string, Struct.Schema> {
     assertValidStrapi(this.strapi, 'Not able to get Schemas');
     const schemas = {
       ...this.strapi.contentTypes,

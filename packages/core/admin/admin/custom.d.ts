@@ -1,12 +1,13 @@
 /// <reference types="vite/client" />
 
-import { type StrapiTheme } from '@strapi/design-system';
-import { type Attribute, type FeaturesService } from '@strapi/types';
-import { type BaseEditor } from 'slate';
-import { type HistoryEditor } from 'slate-history';
-import { type ReactEditor } from 'slate-react';
+import type { StrapiTheme } from '@strapi/design-system';
+import type { Attribute } from '@strapi/types/schema';
+import type { Features } from '@strapi/types/modules';
+import type { BaseEditor } from 'slate';
+import type { HistoryEditor } from 'slate-history';
+import type { ReactEditor } from 'slate-react';
 
-import { type LinkEditor } from './src/content-manager/pages/EditView/components/FormInputs/BlocksInput/plugins/withLinks';
+import type { LinkEditor } from './src/content-manager/pages/EditView/components/FormInputs/BlocksInput/plugins/withLinks';
 
 declare module 'styled-components' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -28,7 +29,7 @@ interface BrowserStrapi {
   backendURL: string;
   isEE: boolean;
   future: {
-    isEnabled: (name: keyof FeaturesService['config']) => boolean;
+    isEnabled: (name: keyof Features.FeaturesService['config']) => boolean;
   };
   features: {
     SSO: 'sso';

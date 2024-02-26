@@ -1,4 +1,4 @@
-import { LoadedStrapi } from '@strapi/types';
+import { LoadedStrapi } from '@strapi/types/core';
 import { differenceWith, isEqual } from 'lodash/fp';
 
 interface PersistedTable {

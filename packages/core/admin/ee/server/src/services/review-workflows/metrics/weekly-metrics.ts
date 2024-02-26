@@ -1,4 +1,4 @@
-import { LoadedStrapi as Strapi } from '@strapi/types';
+import { LoadedStrapi as Strapi } from '@strapi/types/core';
 import { flow, map, sum, size, mean, max, defaultTo } from 'lodash/fp';
 import { add } from 'date-fns';
 import { getService } from '../../../utils';

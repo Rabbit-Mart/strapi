@@ -1,6 +1,8 @@
 import { merge, isEmpty, set, propEq } from 'lodash/fp';
 import strapiUtils from '@strapi/utils';
-import { Common, Attribute, EntityService } from '@strapi/types';
+import { Attribute } from '@strapi/types/schema';
+import { UID } from '@strapi/types/public';
+import { EntityService } from '@strapi/types/modules';
 
 const { isVisibleAttribute } = strapiUtils.contentTypes;
 const { isAnyToMany } = strapiUtils.relations;
@@ -15,7 +17,7 @@ const isDynamicZone = propEq('type', 'dynamiczone');
 
 // TODO: Import from @strapi/types when it's available there
 type Model = Parameters<typeof isVisibleAttribute>[0];
-export type Populate = EntityService.Params.Populate.Any<Common.UID.Schema>;
+export type Populate = EntityService.Params.Populate.Any<UID.Schema>;
 
 type PopulateOptions = {
   initialPopulate?: Populate;
@@ -33,7 +35,7 @@ type PopulateOptions = {
  * @param options - Options to apply while populating
  */
 function getPopulateForRelation(
-  attribute: Attribute.Any,
+  attribute: Attribute.AnyAttribute,
   model: Model,
   attributeName: string,
   { countMany, countOne, initialPopulate }: PopulateOptions
@@ -69,7 +71,7 @@ function getPopulateForDZ(
 ) {
   // Use fragments to populate the dynamic zone components
   const populatedComponents = (attribute.components || []).reduce(
-    (acc: any, componentUID: Common.UID.Component) => ({
+    (acc: any, componentUID: UID.Component) => ({
       ...acc,
       [componentUID]: {
         populate: getDeepPopulate(componentUID, options, level + 1),
@@ -132,7 +134,7 @@ function getPopulateFor(
  * @param level - Current level of nested call
  */
 const getDeepPopulate = (
-  uid: Common.UID.Schema,
+  uid: UID.Schema,
   {
     initialPopulate = {} as any,
     countMany = false,
@@ -177,7 +179,7 @@ const getDeepPopulate = (
  * @returns result.populate
  * @returns result.hasRelations
  */
-const getDeepPopulateDraftCount = (uid: Common.UID.Schema) => {
+const getDeepPopulateDraftCount = (uid: UID.Schema) => {
   const model = strapi.getModel(uid);
   let hasRelations = false;
 
@@ -233,7 +235,7 @@ const getDeepPopulateDraftCount = (uid: Common.UID.Schema) => {
 /**
  *  Create a Strapi populate object which populates all attribute fields of a Strapi query.
  */
-const getQueryPopulate = async (uid: Common.UID.Schema, query: object): Promise<Populate> => {
+const getQueryPopulate = async (uid: UID.Schema, query: object): Promise<Populate> => {
   let populateQuery: Populate = {};
 
   await strapiUtils.traverse.traverseQueryFilters(

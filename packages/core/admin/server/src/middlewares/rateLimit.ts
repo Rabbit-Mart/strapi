@@ -2,7 +2,7 @@ import type { Context, Next } from 'koa';
 import path from 'path';
 import utils from '@strapi/utils';
 import { isString, has, toLower, get } from 'lodash/fp';
-import type { Strapi } from '@strapi/types';
+import type { Strapi } from '@strapi/types/core';
 
 const { RateLimitError } = utils.errors;
 

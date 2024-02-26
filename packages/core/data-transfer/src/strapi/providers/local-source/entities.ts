@@ -1,5 +1,6 @@
 import { Readable, Transform } from 'stream';
-import type { LoadedStrapi, Schema } from '@strapi/types';
+import type { LoadedStrapi } from '@strapi/types/core';
+import type { Struct } from '@strapi/types/internal';
 
 import * as shared from '../../queries';
 import { IEntity } from '../../../../types';
@@ -8,7 +9,7 @@ import { IEntity } from '../../../../types';
  * Generate and consume content-types streams in order to stream each entity individually
  */
 export const createEntitiesStream = (strapi: LoadedStrapi): Readable => {
-  const contentTypes: Schema.ContentType[] = Object.values(strapi.contentTypes);
+  const contentTypes: Struct.ContentTypeSchema[] = Object.values(strapi.contentTypes);
 
   async function* contentTypeStreamGenerator() {
     for (const contentType of contentTypes) {
@@ -31,7 +32,7 @@ export const createEntitiesStream = (strapi: LoadedStrapi): Readable => {
   return Readable.from(
     (async function* entitiesGenerator(): AsyncGenerator<{
       entity: IEntity;
-      contentType: Schema.ContentType;
+      contentType: Struct.ContentTypeSchema;
     }> {
       for await (const { stream, contentType } of contentTypeStreamGenerator()) {
         try {

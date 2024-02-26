@@ -1,6 +1,7 @@
 import { pick, getOr } from 'lodash/fp';
 import { contentTypes as contentTypesUtils } from '@strapi/utils';
-import { Attribute, Schema } from '@strapi/types';
+import type { Attribute } from '@strapi/types/schema';
+import type { Struct } from '@strapi/types/internal';
 
 const dtoFields = [
   'uid',
@@ -16,7 +17,7 @@ const dtoFields = [
 ];
 
 export default () => ({
-  toContentManagerModel(contentType: Schema.Component) {
+  toContentManagerModel(contentType: Struct.ComponentSchema) {
     return {
       ...contentType,
       apiID: contentType.modelName,
@@ -33,7 +34,7 @@ export default () => ({
   toDto: pick(dtoFields),
 });
 
-const formatAttributes = (contentType: Schema.Component) => {
+const formatAttributes = (contentType: Struct.ComponentSchema) => {
   const { getVisibleAttributes, getTimestamps, getCreatorFields } = contentTypesUtils;
 
   // only get attributes that can be seen in the auto generated Edit view or List view
@@ -54,7 +55,7 @@ const formatAttributes = (contentType: Schema.Component) => {
 };
 
 // FIXME: not needed
-const formatAttribute = (key: any, attribute: Attribute.Any) => {
+const formatAttribute = (key: any, attribute: Attribute.AnyAttribute) => {
   if (attribute.type === 'relation') {
     return toRelation(attribute);
   }
@@ -72,5 +73,5 @@ const toRelation = (attribute: Attribute.Relation) => {
   };
 };
 
-const isVisible = (model: Schema.Component): boolean =>
+const isVisible = (model: Struct.ComponentSchema): boolean =>
   getOr(true, 'pluginOptions.content-manager.visible', model) === true;

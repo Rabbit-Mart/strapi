@@ -1,5 +1,6 @@
+import type { Object } from '@strapi/types/utils';
+
 import { curry, pipe, merge, set, pick, omit, includes, isArray, prop } from 'lodash/fp';
-import { Utils } from '@strapi/types';
 
 export type Action = {
   actionId: string; // The unique identifier of the action
@@ -19,7 +20,7 @@ export type Action = {
  * Set of attributes used to create a new {@link Action} object
  * @typedef {Action, { uid: string }} CreateActionPayload
  */
-export type CreateActionPayload = Utils.Object.PartialBy<
+export type CreateActionPayload = Object.PartialBy<
   // Action Id is computed from the uid value
   Omit<Action, 'actionId'>,
   // Options is filled with default values

@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { DOCUMENT_META_FIELDS } from '../constants/attributes';
 
 import type { ComponentsDictionary, Schema } from '../hooks/useDocument';
-import type { Attribute } from '@strapi/types';
+import type { Attribute } from '@strapi/types/schema';
 import type { ObjectShape } from 'yup/lib/object';
 
 type AnySchema =
@@ -118,7 +118,7 @@ const createYupSchema = (
 
 const createAttributeSchema = (
   attribute: Exclude<
-    Attribute.Any,
+    Attribute.AnyAttribute,
     { type: 'dynamiczone' } | { type: 'component' } | { type: 'relation' }
   >
 ) => {

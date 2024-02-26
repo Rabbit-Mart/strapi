@@ -1,4 +1,4 @@
-import { LoadedStrapi as Strapi } from '@strapi/types';
+import { LoadedStrapi as Strapi } from '@strapi/types/core';
 import { errors } from '@strapi/utils';
 import { isNil } from 'lodash/fp';
 import { ENTITY_ASSIGNEE_ATTRIBUTE } from '../../constants/workflows';

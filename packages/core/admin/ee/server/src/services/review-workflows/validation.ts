@@ -1,4 +1,4 @@
-import { Strapi } from '@strapi/types';
+import { Strapi } from '@strapi/types/core';
 import { uniq } from 'lodash/fp';
 import { errors } from '@strapi/utils';
 import { getService } from '../../utils';

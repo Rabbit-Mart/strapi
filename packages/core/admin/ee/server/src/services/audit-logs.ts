@@ -1,4 +1,4 @@
-import { LoadedStrapi } from '@strapi/types';
+import { LoadedStrapi } from '@strapi/types/core';
 import localProvider from '@strapi/provider-audit-logs-local';
 import { scheduleJob } from 'node-schedule';
 

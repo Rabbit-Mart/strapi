@@ -2,8 +2,9 @@ import auditLogs from '@strapi/provider-audit-logs-local';
 import { scheduleJob } from 'node-schedule';
 import createAuditLogsService from '../audit-logs';
 import createEventHub from '../../../../../../core/dist/services/event-hub';
+
+import { LoadedStrapi } from '@strapi/types/core';
 import '@strapi/types';
-import { LoadedStrapi } from '@strapi/types';
 
 jest.mock('../../../../../server/src/register');
 

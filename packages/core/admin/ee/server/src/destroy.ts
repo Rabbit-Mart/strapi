@@ -1,4 +1,4 @@
-import { Strapi } from '@strapi/types';
+import { Strapi } from '@strapi/types/core';
 import executeCEDestroy from '../../../server/src/destroy';
 
 export default async ({ strapi }: { strapi: Strapi }) => {

@@ -1,4 +1,4 @@
-import type { LoadedStrapi } from '@strapi/types';
+import type { LoadedStrapi } from '@strapi/types/core';
 
 import { values } from 'lodash/fp';
 

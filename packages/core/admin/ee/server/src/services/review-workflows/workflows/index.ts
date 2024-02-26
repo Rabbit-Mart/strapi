@@ -1,4 +1,4 @@
-import { LoadedStrapi as Strapi } from '@strapi/types';
+import { LoadedStrapi as Strapi } from '@strapi/types/core';
 import { set, isString, map, get } from 'lodash/fp';
 import { errors } from '@strapi/utils';
 import { WORKFLOW_MODEL_UID, WORKFLOW_POPULATE } from '../../../constants/workflows';

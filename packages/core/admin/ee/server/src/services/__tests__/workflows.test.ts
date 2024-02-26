@@ -4,7 +4,7 @@ jest.mock('../review-workflows/workflows/content-types', () => {
   }));
 });
 
-import { LoadedStrapi } from '@strapi/types';
+import { LoadedStrapi } from '@strapi/types/core';
 import workflowsServiceFactory from '../review-workflows/workflows';
 import { WORKFLOW_MODEL_UID, WORKFLOW_POPULATE } from '../../constants/workflows';
 

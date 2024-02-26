@@ -2,9 +2,9 @@ import { prefixPluginTranslations } from '@strapi/helper-plugin';
 
 import { PERMISSIONS } from './constants';
 
-import type { Plugin } from '@strapi/types';
+import type { Config } from '@strapi/types/plugin';
 
-const admin: Plugin.Config.AdminInput = {
+const admin: Config.AdminInput = {
   // TODO typing app in strapi/types as every plugin needs it
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register(app: any) {

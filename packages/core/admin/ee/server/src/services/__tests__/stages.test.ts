@@ -1,4 +1,4 @@
-import { LoadedStrapi } from '@strapi/types';
+import { LoadedStrapi } from '@strapi/types/core';
 import { cloneDeep } from 'lodash/fp';
 import stageFactory from '../review-workflows/stages';
 import { STAGE_MODEL_UID } from '../../constants/workflows';

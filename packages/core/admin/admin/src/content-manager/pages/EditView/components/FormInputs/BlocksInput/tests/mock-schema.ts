@@ -1,6 +1,6 @@
 /* eslint-disable check-file/filename-naming-convention */
 
-import { type Attribute } from '@strapi/types';
+import { type Attribute } from '@strapi/types/schema';
 
 const mockImage = {
   url: 'https://via.placeholder.com/300/09f/fff.png',

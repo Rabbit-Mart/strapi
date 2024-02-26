@@ -1,4 +1,5 @@
-import { Common, Schema } from '@strapi/types';
+import { UID } from '@strapi/types/public';
+import { Struct } from '@strapi/types/internal';
 import { contentTypes } from '@strapi/utils';
 import type { Entity } from '../entity-manager';
 
@@ -7,7 +8,7 @@ const { isVisibleAttribute } = contentTypes;
 function getCountForRelation(
   attributeName: string,
   entity: Entity[string],
-  model: Schema.ContentType | Schema.Component
+  model: Struct.ContentTypeSchema | Struct.ComponentSchema
 ) {
   // do not count createdBy, updatedBy, localizations etc.
   if (!isVisibleAttribute(model, attributeName)) {
@@ -30,7 +31,7 @@ function getCountForDZ(entity: Entity[string]) {
 function getCountFor(
   attributeName: string,
   entity: Entity[string],
-  model: Schema.ContentType | Schema.Component
+  model: Struct.ContentTypeSchema | Struct.ComponentSchema
 ): any {
   const attribute = model.attributes[attributeName];
 
@@ -52,7 +53,7 @@ function getCountFor(
   }
 }
 
-const getDeepRelationsCount = (entity: Entity, uid: Common.UID.Schema): Entity => {
+const getDeepRelationsCount = (entity: Entity, uid: UID.Schema): Entity => {
   const model = strapi.getModel(uid);
 
   return Object.keys(entity).reduce<Entity>(

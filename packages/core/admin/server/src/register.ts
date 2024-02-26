@@ -1,4 +1,4 @@
-import { Strapi } from '@strapi/types';
+import { Strapi } from '@strapi/types/core';
 import registerAdminPanelRoute from './routes/serve-admin-panel';
 import adminAuthStrategy from './strategies/admin';
 import apiTokenAuthStrategy from './strategies/api-token';

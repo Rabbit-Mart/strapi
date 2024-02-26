@@ -1,6 +1,7 @@
-import type { Schema, Attribute } from '@strapi/types';
+import type { Struct } from '@strapi/types/internal';
+import type { Attribute } from '@strapi/types/schema';
 
-export interface AdminPermission extends Schema.CollectionType {
+export interface AdminPermission extends Struct.CollectionTypeSchema {
   collectionName: 'admin_permissions';
   info: {
     name: 'Permission';
@@ -40,7 +41,7 @@ export interface AdminPermission extends Schema.CollectionType {
   };
 }
 
-export interface AdminUser extends Schema.CollectionType {
+export interface AdminUser extends Struct.CollectionTypeSchema {
   collectionName: 'admin_users';
   info: {
     name: 'User';
@@ -92,7 +93,7 @@ export interface AdminUser extends Schema.CollectionType {
   };
 }
 
-export interface AdminRole extends Schema.CollectionType {
+export interface AdminRole extends Struct.CollectionTypeSchema {
   collectionName: 'admin_roles';
   info: {
     name: 'Role';
@@ -132,7 +133,7 @@ export interface AdminRole extends Schema.CollectionType {
   };
 }
 
-export interface AdminApiToken extends Schema.CollectionType {
+export interface AdminApiToken extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_api_tokens';
   info: {
     name: 'Api Token';
@@ -182,7 +183,7 @@ export interface AdminApiToken extends Schema.CollectionType {
   };
 }
 
-export interface AdminApiTokenPermission extends Schema.CollectionType {
+export interface AdminApiTokenPermission extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_api_token_permissions';
   info: {
     name: 'API Token Permission';
@@ -215,7 +216,7 @@ export interface AdminApiTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface AdminTransferToken extends Schema.CollectionType {
+export interface AdminTransferToken extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_transfer_tokens';
   info: {
     name: 'Transfer Token';
@@ -266,7 +267,7 @@ export interface AdminTransferToken extends Schema.CollectionType {
   };
 }
 
-export interface AdminTransferTokenPermission extends Schema.CollectionType {
+export interface AdminTransferTokenPermission extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_transfer_token_permissions';
   info: {
     name: 'Transfer Token Permission';
@@ -303,7 +304,7 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface PluginUploadFile extends Schema.CollectionType {
+export interface PluginUploadFile extends Struct.CollectionTypeSchema {
   collectionName: 'files';
   info: {
     singularName: 'file';
@@ -352,7 +353,7 @@ export interface PluginUploadFile extends Schema.CollectionType {
   };
 }
 
-export interface PluginUploadFolder extends Schema.CollectionType {
+export interface PluginUploadFolder extends Struct.CollectionTypeSchema {
   collectionName: 'upload_folders';
   info: {
     singularName: 'folder';
@@ -391,7 +392,7 @@ export interface PluginUploadFolder extends Schema.CollectionType {
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
+export interface PluginI18NLocale extends Struct.CollectionTypeSchema {
   collectionName: 'i18n_locale';
   info: {
     singularName: 'locale';
@@ -427,7 +428,7 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
-export interface PluginUsersPermissionsPermission extends Schema.CollectionType {
+export interface PluginUsersPermissionsPermission extends Struct.CollectionTypeSchema {
   collectionName: 'up_permissions';
   info: {
     name: 'permission';
@@ -468,7 +469,7 @@ export interface PluginUsersPermissionsPermission extends Schema.CollectionType 
   };
 }
 
-export interface PluginUsersPermissionsRole extends Schema.CollectionType {
+export interface PluginUsersPermissionsRole extends Struct.CollectionTypeSchema {
   collectionName: 'up_roles';
   info: {
     name: 'role';
@@ -512,7 +513,7 @@ export interface PluginUsersPermissionsRole extends Schema.CollectionType {
   };
 }
 
-export interface PluginUsersPermissionsUser extends Schema.CollectionType {
+export interface PluginUsersPermissionsUser extends Struct.CollectionTypeSchema {
   collectionName: 'up_users';
   info: {
     name: 'user';
@@ -560,7 +561,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiArticleArticle extends Schema.CollectionType {
+export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   collectionName: 'articles';
   info: {
     singularName: 'article';
@@ -618,7 +619,7 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
-export interface ApiAuthorAuthor extends Schema.CollectionType {
+export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   collectionName: 'authors';
   info: {
     singularName: 'author';
@@ -650,7 +651,7 @@ export interface ApiAuthorAuthor extends Schema.CollectionType {
   };
 }
 
-export interface ApiCategoryCategory extends Schema.CollectionType {
+export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
     singularName: 'category';
@@ -690,24 +691,26 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
 }
 
 declare module '@strapi/types' {
-  export module Shared {
-    export interface ContentTypes {
-      'admin::permission': AdminPermission;
-      'admin::user': AdminUser;
-      'admin::role': AdminRole;
-      'admin::api-token': AdminApiToken;
-      'admin::api-token-permission': AdminApiTokenPermission;
-      'admin::transfer-token': AdminTransferToken;
-      'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'plugin::upload.file': PluginUploadFile;
-      'plugin::upload.folder': PluginUploadFolder;
-      'plugin::i18n.locale': PluginI18NLocale;
-      'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
-      'plugin::users-permissions.role': PluginUsersPermissionsRole;
-      'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::article.article': ApiArticleArticle;
-      'api::author.author': ApiAuthorAuthor;
-      'api::category.category': ApiCategoryCategory;
+  export module Public {
+    export module Registries {
+      export interface ContentTypesSchemas {
+        'admin::permission': AdminPermission;
+        'admin::user': AdminUser;
+        'admin::role': AdminRole;
+        'admin::api-token': AdminApiToken;
+        'admin::api-token-permission': AdminApiTokenPermission;
+        'admin::transfer-token': AdminTransferToken;
+        'admin::transfer-token-permission': AdminTransferTokenPermission;
+        'plugin::upload.file': PluginUploadFile;
+        'plugin::upload.folder': PluginUploadFolder;
+        'plugin::i18n.locale': PluginI18NLocale;
+        'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
+        'plugin::users-permissions.role': PluginUsersPermissionsRole;
+        'plugin::users-permissions.user': PluginUsersPermissionsUser;
+        'api::article.article': ApiArticleArticle;
+        'api::author.author': ApiAuthorAuthor;
+        'api::category.category': ApiCategoryCategory;
+      }
     }
   }
 }

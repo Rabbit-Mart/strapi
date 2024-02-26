@@ -1,5 +1,5 @@
 import { Writable } from 'stream';
-import type { LoadedStrapi } from '@strapi/types';
+import type { LoadedStrapi } from '@strapi/types/core';
 import { ProviderTransferError } from '../../../../../errors/providers';
 import { ILink, Transaction } from '../../../../../../types';
 import { createLinkQuery } from '../../../../queries/link';

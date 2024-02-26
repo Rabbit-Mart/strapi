@@ -1,5 +1,5 @@
-import { type Attribute } from '@strapi/types';
-import { type Element, Node } from 'slate';
+import type { Attribute } from '@strapi/types/schema';
+import type { Element, Node } from 'slate';
 
 type Block<T extends Element['type']> = Extract<Node, { type: T }>;
 

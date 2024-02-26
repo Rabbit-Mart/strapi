@@ -2,7 +2,7 @@ import { join } from 'path';
 import { Duplex, PassThrough, Readable } from 'stream';
 import * as webStream from 'stream/web';
 import { stat, createReadStream, ReadStream } from 'fs-extra';
-import type { LoadedStrapi } from '@strapi/types';
+import type { LoadedStrapi } from '@strapi/types/core';
 
 import type { IAsset } from '../../../../types';
 

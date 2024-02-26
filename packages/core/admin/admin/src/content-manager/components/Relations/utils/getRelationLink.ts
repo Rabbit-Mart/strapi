@@ -1,5 +1,5 @@
-import { Entity } from '@strapi/types';
+import type { ID } from '@strapi/types/data';
 
-export function getRelationLink(targetModel: string, id?: Entity.ID) {
+export function getRelationLink(targetModel: string, id?: ID) {
   return `/content-manager/collection-types/${targetModel}/${id ?? ''}`;
 }

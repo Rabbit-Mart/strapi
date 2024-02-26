@@ -1,5 +1,5 @@
 import type { Context } from 'koa';
-import { Strapi } from '@strapi/types';
+import { Strapi } from '@strapi/types/core';
 import { set } from 'lodash/fp';
 
 /**

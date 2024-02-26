@@ -1,4 +1,4 @@
-import { LoadedStrapi as Strapi } from '@strapi/types';
+import { LoadedStrapi as Strapi } from '@strapi/types/core';
 import { mapAsync } from '@strapi/utils';
 import { difference, merge } from 'lodash/fp';
 import { getService } from '../../../utils';

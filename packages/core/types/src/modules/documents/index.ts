@@ -1,4 +1,4 @@
-import { Common } from '../..';
+import { UID } from '../../public';
 import type * as Middleware from './middleware';
 import type { ServiceInstance } from './service-instance';
 
@@ -10,7 +10,7 @@ export * from './result';
 export * from './service-instance';
 
 export type Service = {
-  <TContentTypeUID extends Common.UID.ContentType>(
+  <TContentTypeUID extends UID.ContentType>(
     uid: TContentTypeUID
   ): ServiceInstance<TContentTypeUID>;
 

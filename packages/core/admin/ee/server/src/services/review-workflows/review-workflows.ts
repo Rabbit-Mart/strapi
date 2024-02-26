@@ -1,4 +1,4 @@
-import { LoadedStrapi as Strapi } from '@strapi/types';
+import { LoadedStrapi as Strapi } from '@strapi/types/core';
 import { filter, set, forEach, pipe, map, stubTrue, cond, defaultsDeep } from 'lodash/fp';
 import { getService } from '../../utils';
 import { getVisibleContentTypesUID, hasStageAttribute } from '../../utils/review-workflows';

@@ -26,13 +26,60 @@
       "url": "https://strapi.io"
     }
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "source": "./src/index.ts",
-  "types": "./dist/index.d.ts",
   "files": [
-    "dist/"
+    "dist/",
+    "src/"
   ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "source": "./src/index.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.ts"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "source": "./src/core/index.ts",
+      "default": "./dist/core/index.d.ts"
+    },
+    "./data": {
+      "types": "./dist/data/index.d.ts",
+      "source": "./src/data/index.ts",
+      "default": "./dist/data/index.d.ts"
+    },
+    "./internal": {
+      "types": "./dist/internal/index.d.ts",
+      "source": "./src/internal/index.ts",
+      "default": "./dist/internal/index.d.ts"
+    },
+    "./modules": {
+      "types": "./dist/modules/index.d.ts",
+      "source": "./src/modules/index.ts",
+      "default": "./dist/modules/index.d.ts"
+    },
+    "./plugin": {
+      "types": "./dist/plugin/index.d.ts",
+      "source": "./src/plugin/index.ts",
+      "default": "./dist/plugin/index.d.ts"
+    },
+    "./public": {
+      "types": "./dist/public/index.d.ts",
+      "source": "./src/public/index.ts",
+      "default": "./dist/public/index.d.ts"
+    },
+    "./schema": {
+      "types": "./dist/schema/index.d.ts",
+      "source": "./src/schema/index.ts",
+      "default": "./dist/schema/index.d.ts"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "source": "./src/utils/index.ts",
+      "default": "./dist/utils/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "pack-up build",
     "clean": "run -T rimraf ./dist",

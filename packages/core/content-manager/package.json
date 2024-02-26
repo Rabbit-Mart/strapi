@@ -49,7 +49,6 @@
   },
   "dependencies": {
     "@sindresorhus/slugify": "1.1.0",
-    "@strapi/types": "4.20.1",
     "@strapi/utils": "4.20.1",
     "koa": "2.13.4",
     "lodash": "4.17.21",
@@ -57,6 +56,7 @@
   },
   "devDependencies": {
     "@strapi/pack-up": "workspace:*",
+    "@strapi/types": "workspace:*",
     "@types/jest": "29.5.2",
     "@types/lodash": "^4.14.191",
     "koa-body": "4.2.0"

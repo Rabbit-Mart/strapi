@@ -4,7 +4,7 @@ import { createContext } from '@radix-ui/react-context';
 import { IconButton, Divider, VisuallyHidden } from '@strapi/design-system';
 import { pxToRem } from '@strapi/helper-plugin';
 import { Expand } from '@strapi/icons';
-import { type Attribute } from '@strapi/types';
+import { type Attribute } from '@strapi/types/schema';
 import { MessageDescriptor, useIntl } from 'react-intl';
 import { Editor, type Descendant, createEditor } from 'slate';
 import { withHistory } from 'slate-history';

@@ -1,4 +1,4 @@
-import { Entity } from '@strapi/types';
+import type { ID } from '@strapi/types/data';
 
 import * as Permissions from '../../../shared/contracts/permissions';
 import * as Roles from '../../../shared/contracts/roles';
@@ -196,7 +196,7 @@ type GetRolesParams =
   | Roles.FindRole.Request['params']
   | (Roles.FindRoles.Request['query'] & { id?: never });
 interface GetRolePermissionsParams {
-  id: Entity.ID;
+  id: ID;
 }
 
 const {

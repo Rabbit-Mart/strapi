@@ -13,7 +13,8 @@
  *  }]}
  */
 
-import { LoadedStrapi } from '@strapi/types';
+import type { LoadedStrapi } from '@strapi/types/core';
+
 import { createTestSetup, destroyTestSetup } from '../../../../../utils/builder-helper';
 import resources from '../../resources/index';
 

@@ -4,7 +4,7 @@
   "compilerOptions": {
     "rootDir": "../",
     "baseUrl": ".",
-    "types": ["lodash", "jest"],
+    "types": ["lodash", "jest", "@strapi/types/schema", "@strapi/types/modules", "@strapi/types/internal", "@strapi/types/public", "@strapi/types/core"],
     "esModuleInterop": true
   }
 }

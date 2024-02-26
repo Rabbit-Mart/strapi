@@ -1,5 +1,5 @@
 import { merge, map, difference, uniq } from 'lodash/fp';
-import { Strapi } from '@strapi/types';
+import { Strapi } from '@strapi/types/core';
 import { pipeAsync } from '@strapi/utils';
 import { getService } from './utils';
 import adminActions from './config/admin-actions';

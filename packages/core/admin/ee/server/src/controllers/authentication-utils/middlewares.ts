@@ -1,11 +1,11 @@
-import { Common } from '@strapi/types';
+import type { MiddlewareHandler } from '@strapi/types/core';
 import passport from 'koa-passport';
 import { getService } from '../../utils';
 import utils from './utils';
 
 const defaultConnectionError = () => new Error('Invalid connection payload');
 
-export const authenticate: Common.MiddlewareHandler = async (ctx, next) => {
+export const authenticate: MiddlewareHandler = async (ctx, next) => {
   const {
     params: { provider },
   } = ctx;
@@ -33,23 +33,22 @@ export const authenticate: Common.MiddlewareHandler = async (ctx, next) => {
   })(ctx, next);
 };
 
-const existingUserScenario: Common.MiddlewareHandler =
-  (ctx, next) => async (user: any, provider: any) => {
-    const redirectUrls = utils.getPrefixedRedirectUrls();
+const existingUserScenario: MiddlewareHandler = (ctx, next) => async (user: any, provider: any) => {
+  const redirectUrls = utils.getPrefixedRedirectUrls();
 
-    if (!user.isActive) {
-      strapi.eventHub.emit('admin.auth.error', {
-        error: new Error(`Deactivated user tried to login (${user.id})`),
-        provider,
-      });
-      return ctx.redirect(redirectUrls.error);
-    }
+  if (!user.isActive) {
+    strapi.eventHub.emit('admin.auth.error', {
+      error: new Error(`Deactivated user tried to login (${user.id})`),
+      provider,
+    });
+    return ctx.redirect(redirectUrls.error);
+  }
 
-    ctx.state.user = user;
-    return next();
-  };
+  ctx.state.user = user;
+  return next();
+};
 
-const nonExistingUserScenario: Common.MiddlewareHandler =
+const nonExistingUserScenario: MiddlewareHandler =
   (ctx, next) => async (profile: any, provider: any) => {
     const { email, firstname, lastname, username } = profile;
     const redirectUrls = utils.getPrefixedRedirectUrls();
@@ -91,7 +90,7 @@ const nonExistingUserScenario: Common.MiddlewareHandler =
     return next();
   };
 
-export const redirectWithAuth: Common.MiddlewareHandler = (ctx) => {
+export const redirectWithAuth: MiddlewareHandler = (ctx) => {
   const {
     params: { provider },
   } = ctx;

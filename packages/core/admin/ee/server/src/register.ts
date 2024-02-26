@@ -1,4 +1,4 @@
-import { LoadedStrapi as Strapi } from '@strapi/types';
+import { LoadedStrapi as Strapi } from '@strapi/types/core';
 import executeCERegister from '../../../server/src/register';
 import migrateAuditLogsTable from './migrations/audit-logs-table';
 import migrateReviewWorkflowStagesColor from './migrations/review-workflows-stages-color';

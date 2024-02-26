@@ -1,5 +1,5 @@
 import { type StrapiTheme } from '@strapi/design-system';
-import { type Attribute } from '@strapi/types';
+import { type Attribute } from '@strapi/types/schema';
 import { type BaseEditor } from 'slate';
 import { type HistoryEditor } from 'slate-history';
 import { type ReactEditor } from 'slate-react';

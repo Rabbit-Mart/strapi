@@ -1,4 +1,4 @@
-import { LoadedStrapi } from '@strapi/types';
+import { LoadedStrapi } from '@strapi/types/core';
 import reviewWorkflowsServiceFactory from '../review-workflows/review-workflows';
 import { ENTITY_STAGE_ATTRIBUTE, ENTITY_ASSIGNEE_ATTRIBUTE } from '../../constants/workflows';
 

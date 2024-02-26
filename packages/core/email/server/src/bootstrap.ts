@@ -1,4 +1,4 @@
-import type { Strapi } from '@strapi/types';
+import type { Strapi } from '@strapi/types/core';
 import type { EmailConfig, SendOptions } from './types';
 
 interface EmailProvider {

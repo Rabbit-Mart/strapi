@@ -1,5 +1,6 @@
+import type { Object } from '@strapi/types/utils';
+
 import { providerFactory } from '@strapi/utils';
-import { Utils } from '@strapi/types';
 import {
   pipe,
   set,
@@ -17,7 +18,7 @@ import {
 import { Permission } from '../../../../shared/contracts/shared';
 import { SanitizedPermission } from '../../../../shared/contracts/roles';
 
-export type CreatePermissionPayload = Utils.Object.PartialBy<
+export type CreatePermissionPayload = Object.PartialBy<
   Permission,
   'actionParameters' | 'conditions' | 'properties' | 'subject' | 'id' | 'createdAt' | 'updatedAt'
 >;

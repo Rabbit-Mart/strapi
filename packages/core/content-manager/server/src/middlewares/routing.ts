@@ -1,8 +1,10 @@
-import { UID, Common, Schema } from '@strapi/types';
+import { UID } from '@strapi/types/public';
+import { Route } from '@strapi/types/core';
+import { Struct } from '@strapi/types/internal';
 import type { Context, Next } from 'koa';
 import isNil from 'lodash/isNil';
 
-interface ContentType extends Schema.ContentType {
+interface ContentType extends Struct.ContentTypeSchema {
   plugin?: string;
 }
 
@@ -22,7 +24,7 @@ export default async (ctx: Context, next: Next) => {
     target = strapi.plugin(ct.plugin);
   }
 
-  const { route }: { route: Common.Route } = ctx.state;
+  const { route }: { route: Route } = ctx.state;
 
   if (typeof route.handler !== 'string') {
     return next();

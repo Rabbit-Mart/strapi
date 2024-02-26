@@ -1,4 +1,4 @@
-import { Strapi } from '@strapi/types';
+import { Strapi } from '@strapi/types/core';
 
 export const getService = (
   name: string,

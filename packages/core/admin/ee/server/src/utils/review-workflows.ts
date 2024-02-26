@@ -1,4 +1,4 @@
-import { LoadedStrapi } from '@strapi/types';
+import { LoadedStrapi } from '@strapi/types/core';
 import { getOr, keys, pickBy, pipe, has, clamp } from 'lodash/fp';
 import {
   ENTITY_STAGE_ATTRIBUTE,

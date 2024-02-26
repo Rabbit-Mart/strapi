@@ -2,7 +2,7 @@ import { Contracts } from '@strapi/plugin-content-manager/_internal/shared';
 
 import { contentManagerApi } from './api';
 
-import type { EntityService } from '@strapi/types';
+import type { EntityService } from '@strapi/types/modules';
 import type { errors } from '@strapi/utils';
 
 type GetRelationsResponse =

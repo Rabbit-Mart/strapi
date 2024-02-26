@@ -1,6 +1,6 @@
 import type { Context } from 'koa';
 
-import { Strapi } from '@strapi/types';
+import { Strapi } from '@strapi/types/core';
 import { mapAsync } from '@strapi/utils';
 import { getService } from '../../../utils';
 import { validateUpdateStageOnEntity } from '../../../validation/review-workflows';

@@ -1,5 +1,6 @@
 import { errors } from '@strapi/utils';
-import { LoadedStrapi as Strapi, CustomFields } from '@strapi/types';
+import type { LoadedStrapi as Strapi } from '@strapi/types/core';
+import type { CustomFields } from '@strapi/types/modules';
 
 const { ApplicationError } = errors;
 

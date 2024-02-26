@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Box, Flex } from '@strapi/design-system';
 import { prefixFileUrlWithBackendUrl, useLibrary } from '@strapi/helper-plugin';
 import { Picture } from '@strapi/icons';
-import { type Attribute } from '@strapi/types';
+import { type Attribute } from '@strapi/types/schema';
 import { type Element, Transforms, Editor } from 'slate';
 import { useFocused, type RenderElementProps, useSelected } from 'slate-react';
 import styled, { css } from 'styled-components';
