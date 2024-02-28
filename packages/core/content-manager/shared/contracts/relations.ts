@@ -4,8 +4,9 @@ import { errors } from '@strapi/utils';
 type PaginationQuery = EntityService.Params.Pagination.PageNotation;
 
 export interface RelationResult {
-  id: Entity.ID;
+  id: Documents.ID;
   publishedAt: string | null;
+  [key: string]: any;
 }
 
 export interface Pagination {

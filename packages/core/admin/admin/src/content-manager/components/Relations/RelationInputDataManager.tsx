@@ -271,81 +271,6 @@ const RelationInputDataManager = ({
     search.fetchNextPage();
   };
 
-  const getItemPos = (index: number) => `${index + 1} of ${relationsFromModifiedData.length}`;
-
-  const handleRelationReorder = (oldIndex: number, newIndex: number) => {
-    const item = relationsFromModifiedData[oldIndex];
-
-    setLiveText(
-      formatMessage(
-        {
-          id: getTranslation('dnd.reorder'),
-          defaultMessage: '{item}, moved. New position in list: {position}.',
-        },
-        {
-          item: item.mainField ?? item.id,
-          position: getItemPos(newIndex),
-        }
-      )
-    );
-
-    relationReorder?.({
-      name,
-      newIndex,
-      oldIndex,
-    });
-  };
-
-  const handleGrabItem = (index: number) => {
-    const item = relationsFromModifiedData[index];
-
-    setLiveText(
-      formatMessage(
-        {
-          id: getTranslation('dnd.grab-item'),
-          defaultMessage: `{item}, grabbed. Current position in list: {position}. Press up and down arrow to change position, Spacebar to drop, Escape to cancel.`,
-        },
-        {
-          item: item.mainField ?? item.id,
-          position: getItemPos(index),
-        }
-      )
-    );
-  };
-
-  const handleDropItem = (index: number) => {
-    const item = relationsFromModifiedData[index];
-
-    setLiveText(
-      formatMessage(
-        {
-          id: getTranslation('dnd.drop-item'),
-          defaultMessage: `{item}, dropped. Final position in list: {position}.`,
-        },
-        {
-          item: item.mainField ?? item.id,
-          position: getItemPos(index),
-        }
-      )
-    );
-  };
-
-  const handleCancel = (index: number) => {
-    const item = relationsFromModifiedData[index];
-
-    setLiveText(
-      formatMessage(
-        {
-          id: getTranslation('dnd.cancel-item'),
-          defaultMessage: '{item}, dropped. Re-order cancelled.',
-        },
-        {
-          item: item.mainField ?? item.id,
-        }
-      )
-    );
-  };
-
   if (
     (!isFieldAllowed && isCreatingEntry) ||
     (!isCreatingEntry && !isFieldAllowed && !isFieldReadable)
@@ -418,13 +343,13 @@ const RelationInputDataManager = ({
         defaultMessage: 'No relations available',
       })}
       numberOfRelationsToDisplay={RELATIONS_TO_DISPLAY}
-      onDropItem={handleDropItem}
-      onGrabItem={handleGrabItem}
-      onCancel={handleCancel}
+      // onDropItem={handleDropItem}
+      // onGrabItem={handleGrabItem}
+      // onCancel={handleCancel}
       onRelationConnect={handleRelationConnect}
       onRelationDisconnect={handleRelationDisconnect}
       onRelationLoadMore={handleRelationLoadMore}
-      onRelationReorder={handleRelationReorder}
+      // onRelationReorder={handleRelationReorder}
       onSearch={(term) => handleSearch(term)}
       onSearchNextPage={() => handleSearchMore()}
       placeholder={formatMessage(
