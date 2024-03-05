@@ -1,0 +1,142 @@
+on:
+  push:
+    branches:
+      - develop
+
+name: build and deploy workflow
+
+env:
+  
+  #staging env variables
+  ECR_REPOSITORY_STG       : 'rabbitmart-stg/be-strapi-service'
+  HELM_VALUES_FILE_STG     : './be-services/be-strapi-service/values-stg.yaml'
+  ECR_REPOSITORY_STG_TMP   : 'rabbitmart-stg/be-microservices-cached-builds'
+  NAMESPACE_STG            : 'strapi-stg'
+
+  #production env variables
+  ECR_REPOSITORY_PROD      : 'rabbitmart-prod/be-strapi-service'
+  HELM_VALUES_FILE_PROD    : './be-services/be-strapi-service/values-prod.yaml'
+  ECR_REPOSITORY_PROD_TMP  : 'rabbitmart-prod/be-microservices-cached-builds'
+  NAMESPACE_PROD           : 'strapi-prod'
+
+  #common variables
+  RELEASE_NAME             : 'be-strapi-service'
+
+
+jobs:
+  deploy:
+    name: build and deploy job to EKS
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: set env variables
+      run: |
+        echo INTERMEDIATE_HASH=$(sha1sum package.json yarn.lock | awk '{print$1}'| sha1sum | awk '{print$1}') >> $GITHUB_ENV
+            
+        if [[ $GITHUB_REF_NAME == 'staging' ]]
+        then
+            echo "staging branch"
+            echo "ECR_REPOSITORY=$(echo $ECR_REPOSITORY_STG)" >> $GITHUB_ENV
+            echo "NAMESPACE=$(echo $NAMESPACE_STG)" >> $GITHUB_ENV
+            echo "HELM_VALUES_FILE=$(echo $HELM_VALUES_FILE_STG)" >> $GITHUB_ENV
+            echo "AWS_ACCESS_KEY_ID=$(echo ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }} )" >> $GITHUB_ENV
+            echo "AWS_SECRET_ACCESS_KEY=$(echo ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }} )" >> $GITHUB_ENV
+            echo "EKS_CLUSTER=$(echo ${{ secrets.EKS_CLUSTER_STG }} )" >> $GITHUB_ENV
+            echo "KUBE_CONFIG_DATA =  $KUBE_CONFIG_DATA"
+            
+        elif [[ $GITHUB_REF_NAME == 'main' ]] || [[ $GITHUB_REF_NAME == 'master' ]]
+        then
+            echo "main branch"
+            echo "master or main branch"
+            echo "ECR_REPOSITORY=$(echo $ECR_REPOSITORY_PROD)" >> $GITHUB_ENV
+            echo "NAMESPACE=$(echo $NAMESPACE_PROD)" >> $GITHUB_ENV
+            echo "HELM_VALUES_FILE=$(echo $HELM_VALUES_FILE_PROD)" >> $GITHUB_ENV
+            echo "AWS_ACCESS_KEY_ID=$(echo ${{ secrets.AWS_ACCESS_KEY_ID_PROD }} )" >> $GITHUB_ENV
+            echo "AWS_SECRET_ACCESS_KEY=$(echo ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }} )" >> $GITHUB_ENV
+            echo "EKS_CLUSTER=$(echo ${{ secrets.EKS_CLUSTER_PROD }} )" >> $GITHUB_ENV
+            echo "KUBE_CONFIG_DATA =  $KUBE_CONFIG_DATA"
+        else
+            echo "other branch"
+        fi
+
+
+            
+       
+
+    - name: Configure AWS credentials
+      #if: ${{ github.ref_name == 'main' || github.ref_name == 'master' }}
+      uses: aws-actions/configure-aws-credentials@v3
+      with:
+        aws-access-key-id    : ${{ env.AWS_ACCESS_KEY_ID}}
+        aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+        aws-region           : eu-west-1
+
+    - name: Login to Amazon ECR
+      id:   login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+
+    - name: Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY : ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG    : ${{ github.sha }}
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "ECR_REGISTRY=$(echo $ECR_REGISTRY)" >> $GITHUB_ENV
+        echo "IMAGE_TAG=$(echo $IMAGE_TAG)" >> $GITHUB_ENV
+        
+    
+    - name: Debug variables step
+      run: |
+        echo "ECR_REGISTRY = $ECR_REGISTRY"
+        echo "ECR_REPOSITORY = $ECR_REPOSITORY"
+        echo "IMAGE_TAG =  $IMAGE_TAG"
+        echo "NAMESPACE = $NAMESPACE"
+        echo "HELM_VALUES_FILE =  $HELM_VALUES_FILE"
+        echo "KUBE_CONFIG_DATA =  $KUBE_CONFIG_DATA"
+        echo "AWS_ACCESS_KEY_ID =  $AWS_ACCESS_KEY_ID"
+        echo "AWS_SECRET_ACCESS_KEY =  $AWS_SECRET_ACCESS_KEY"
+        echo "EKS_CLUSTER =  $EKS_CLUSTER"
+        aws sts get-caller-identity
+        
+        
+    - name: Checkout helm
+      uses: actions/checkout@v3
+      with:
+        repository: 'Rabbit-Mart/sre-helm-charts'
+        ref       : 'main'
+        token     : ${{ secrets.TOKEN_GITHUB }}
+
+    - name: change release version and get kubeconfig file
+      run: |
+        sed -i "s/^appVersion:.*$/appVersion: $IMAGE_TAG/" be-helm-chart/Chart.yaml
+        aws eks update-kubeconfig --name $EKS_CLUSTER --region eu-west-1
+        sed -i 's/v1beta1/v1alpha1/' ~/.kube/config
+
+        echo 'KUBE_CONFIG_DATA<<EOF' >> $GITHUB_ENV
+        cat ~/.kube/config >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
+    
+
+    - name: 'Deploy to EKS with Helm'
+      uses: 'Rabbit-Mart/sre-helm-action@master'
+      with:
+        token       : "${{ github.token }}"
+        secrets     : "${{ toJSON(secrets) }}"
+        version     : "${{ github.sha }}"
+        chart       : "be-helm-chart"
+        namespace   : "${{ env.NAMESPACE }}"
+        release     : "${{ env.RELEASE_NAME }}"
+        helm        : helm3
+        value-files : "${{ env.HELM_VALUES_FILE }}"
+
+        values : |
+          imageRepository : "${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}"
+          imageTag        : '${{ env.IMAGE_TAG }}'
+        
+      env:
+        KUBECONFIG_FILE : "${{ env.KUBE_CONFIG_DATA }}"

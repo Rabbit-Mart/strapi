@@ -3,8 +3,8 @@ name: 'Tests'
 on:
   push:
     branches:
-      - main
-      - develop
+      - mai
+      - deve
   pull_request:
     paths-ignore:
       - 'docs/**'
