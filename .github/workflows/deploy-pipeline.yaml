@@ -63,9 +63,6 @@ jobs:
         fi
 
 
-            
-       
-
     - name: Configure AWS credentials
       #if: ${{ github.ref_name == 'main' || github.ref_name == 'master' }}
       uses: aws-actions/configure-aws-credentials@v3
