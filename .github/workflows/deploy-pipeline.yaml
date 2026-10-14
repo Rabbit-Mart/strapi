@@ -45,7 +45,7 @@ jobs:
             echo "AWS_ACCESS_KEY_ID=$(echo ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }} )" >> $GITHUB_ENV
             echo "AWS_SECRET_ACCESS_KEY=$(echo ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }} )" >> $GITHUB_ENV
             echo "EKS_CLUSTER=$(echo ${{ secrets.EKS_CLUSTER_STG }} )" >> $GITHUB_ENV
-            echo "KUBE_CONFIG_DATA =  $KUBE_CONFIG_DATA"
+            echo "KUBE_CONFIG_DATA =  $(echo "$KUBE_CONFIG_DATA" | sed -E 's/^([[:space:]]*-?[[:space:]]*(token|client-key-data|client-certificate-data|password|secret)[[:space:]]*:[[:space:]]*).*/\1****/')"
             
         elif [[ $GITHUB_REF_NAME == 'main' ]] || [[ $GITHUB_REF_NAME == 'master' ]]
         then
@@ -57,7 +57,7 @@ jobs:
             echo "AWS_ACCESS_KEY_ID=$(echo ${{ secrets.AWS_ACCESS_KEY_ID_PROD }} )" >> $GITHUB_ENV
             echo "AWS_SECRET_ACCESS_KEY=$(echo ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }} )" >> $GITHUB_ENV
             echo "EKS_CLUSTER=$(echo ${{ secrets.EKS_CLUSTER_PROD }} )" >> $GITHUB_ENV
-            echo "KUBE_CONFIG_DATA =  $KUBE_CONFIG_DATA"
+            echo "KUBE_CONFIG_DATA =  $(echo "$KUBE_CONFIG_DATA" | sed -E 's/^([[:space:]]*-?[[:space:]]*(token|client-key-data|client-certificate-data|password|secret)[[:space:]]*:[[:space:]]*).*/\1****/')"
         else
             echo "other branch"
         fi
@@ -93,7 +93,7 @@ jobs:
         echo "IMAGE_TAG =  $IMAGE_TAG"
         echo "NAMESPACE = $NAMESPACE"
         echo "HELM_VALUES_FILE =  $HELM_VALUES_FILE"
-        echo "KUBE_CONFIG_DATA =  $KUBE_CONFIG_DATA"
+        echo "KUBE_CONFIG_DATA =  $(echo "$KUBE_CONFIG_DATA" | sed -E 's/^([[:space:]]*-?[[:space:]]*(token|client-key-data|client-certificate-data|password|secret)[[:space:]]*:[[:space:]]*).*/\1****/')"
         echo "AWS_ACCESS_KEY_ID =  $AWS_ACCESS_KEY_ID"
         echo "AWS_SECRET_ACCESS_KEY =  $AWS_SECRET_ACCESS_KEY"
         echo "EKS_CLUSTER =  $EKS_CLUSTER"
